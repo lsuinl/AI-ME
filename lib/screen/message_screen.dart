@@ -28,6 +28,7 @@ class _MessageScreenState extends State<MessageScreen> {
                 child: Text("에이미",style: GoogleFonts.notoSansKr(color: Colors.white, fontSize: 25.sp, fontWeight: FontWeight.w500),),
                 )),
             SizedBox(height: 10.h),
+            Flexible(child:
             ListView(
               physics: ClampingScrollPhysics(),
               clipBehavior: Clip.none,
@@ -96,7 +97,7 @@ class _MessageScreenState extends State<MessageScreen> {
                       child:  Text("슬퍼하지마 숭숭숭", style: TextStyle(fontSize: 17.sp,color: Colors.white),)
                   )
                 )
-                )],)
+                )],))
           ]),
             //입력창
             Align(
@@ -137,3 +138,6 @@ class _MessageScreenState extends State<MessageScreen> {
         paddings: 0);
   }
 }
+//알수없는사람이네요..
+//결과보러가기..
+//컴포넌트 분류

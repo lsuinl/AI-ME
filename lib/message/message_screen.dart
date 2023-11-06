@@ -1,4 +1,5 @@
 import 'package:ai_me/common/basic.dart';
+import 'package:ai_me/common/qustion_list.dart';
 import 'package:ai_me/message/component/ai_message.dart';
 import 'package:ai_me/message/component/go_result_button.dart';
 import 'package:ai_me/message/component/input_text.dart';
@@ -14,28 +15,47 @@ class MessageScreen extends StatefulWidget {
   @override
   State<MessageScreen> createState() => _MessageScreenState();
 }
-
+List<Widget> widgets = [];
 class _MessageScreenState extends State<MessageScreen> {
+  int number=0;
+  List<Widget> widgetlist=[];
+  ScrollController controller = ScrollController();
+
+  @override
+  void initState() {
+    widgets=[];
+    widgets.add(AiMessage(message: question[number]));
+    number++;
+    widgetlist=widgets;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Basic(
         widgets: Stack(children: [
           Column(children: [
             Top(),
-            SizedBox(height: 10.h),
             Flexible(
                 child: ListView(
-              physics: ClampingScrollPhysics(),
-              clipBehavior: Clip.none,
+                  controller: controller,
+              physics: BouncingScrollPhysics(),
+              clipBehavior: Clip.antiAliasWithSaveLayer,
               shrinkWrap: true,
-              children: [
-                AiMessage(),  //ai메세지카드
-                MyMessage(),//내메세지카드
-              ],
+              children: widgetlist
             ))]),
-          InputText()
+          InputText(setst: setst,)
         ]),
         paddings: 0);
+  }
+  setst(){
+    setState(() {
+      widgets.add(
+        AiMessage(message: question[number])
+      );
+      number++;
+      widgetlist=widgets;
+      print("??");
+    });
   }
 }
 

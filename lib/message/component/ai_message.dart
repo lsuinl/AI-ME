@@ -4,7 +4,11 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:solar_icons/solar_icons.dart';
 
 class AiMessage extends StatefulWidget {
-  const AiMessage({super.key});
+  final String message;
+
+  const AiMessage({
+    required this.message,
+    super.key});
 
   @override
   State<AiMessage> createState() => _AiMessageState();
@@ -68,7 +72,7 @@ class _AiMessageState extends State<AiMessage> {
                   stops: [0.2, 1],
                 ),
               ),
-              child: Text("슬퍼하지마 숭숭숭", style: TextStyle(fontSize: 17.sp, color: Colors.white),))
+              child: Text(widget.message, style: TextStyle(fontSize: 17.sp, color: Colors.white),))
         ],
       ),
     );

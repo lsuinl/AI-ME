@@ -39,6 +39,8 @@ dependencies:
   solar_icons: ^0.0.5
   google_fonts: ^6.1.0
   percent_indicator: ^4.2.3
+  shared_preferences: ^2.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

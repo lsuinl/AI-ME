@@ -1,3 +1,4 @@
+import 'package:ai_me/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,7 +24,7 @@ class ReplayButton extends StatelessWidget {
             foregroundColor: Colors.white,
             padding: EdgeInsets.all(10.0),
           ),
-          onPressed: () {},
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen())),
           child: Text('다시 테스트하기', style: GoogleFonts.notoSansKr(fontSize: 23.sp, fontWeight: FontWeight.w500),),
         ));
   }

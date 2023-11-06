@@ -1,17 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:solar_icons/solar_icons.dart';
 
-class AiMessage extends StatelessWidget {
+class AiMessage extends StatefulWidget {
   const AiMessage({super.key});
 
+  @override
+  State<AiMessage> createState() => _AiMessageState();
+}
+
+class _AiMessageState extends State<AiMessage> {
+  bool loading=true;
+  @override
+  void initState() {
+    waiting();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: loading==true ?[
+          ShaderMask(
+              blendMode: BlendMode.srcIn,
+              shaderCallback: (Rect bounds) => LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xEE0537E9), Color(0xFF924CEC)],
+              ).createShader(bounds),
+              child: Icon(SolarIconsBold.emojiFunnySquare, size: 35.r,)),
+          SizedBox(width: 10),
+        Container(
+              width:MediaQuery.of(context).size.height/9,
+              height: MediaQuery.of(context).size.height/14,
+              child: LoadingAnimationWidget.waveDots(
+                color: Color(0xFFC4A2ED),
+                size: 60,
+              ))
+        ]:[
           ShaderMask(
               blendMode: BlendMode.srcIn,
               shaderCallback: (Rect bounds) => LinearGradient(
@@ -43,5 +72,11 @@ class AiMessage extends StatelessWidget {
         ],
       ),
     );
+  }
+  void waiting() async{
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      loading=false;
+    });
   }
 }

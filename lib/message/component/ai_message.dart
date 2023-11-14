@@ -54,6 +54,7 @@ class _AiMessageState extends State<AiMessage> {
                   ).createShader(bounds),
               child: Icon(SolarIconsBold.emojiFunnySquare, size: 35.r,)),
           SizedBox(width: 5),
+          Flexible(child:
           Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               decoration: const BoxDecoration(
@@ -73,9 +74,8 @@ class _AiMessageState extends State<AiMessage> {
                 ),
               ),
               child: Text(widget.message, style: TextStyle(fontSize: 17.sp, color: Colors.white),))
-        ],
-      ),
-    );
+        )],
+      ));
   }
   void waiting() async{
     await Future.delayed(Duration(seconds: 2));

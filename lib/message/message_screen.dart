@@ -1,13 +1,12 @@
 import 'package:ai_me/common/basic.dart';
 import 'package:ai_me/common/qustion_list.dart';
 import 'package:ai_me/message/component/ai_message.dart';
-import 'package:ai_me/message/component/go_result_button.dart';
+import 'package:ai_me/message/component/chat_list.dart';
 import 'package:ai_me/message/component/input_text.dart';
-import 'package:ai_me/message/component/my_message.dart';
 import 'package:ai_me/message/component/top.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import 'component/my_message.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -15,46 +14,38 @@ class MessageScreen extends StatefulWidget {
   @override
   State<MessageScreen> createState() => _MessageScreenState();
 }
-List<Widget> widgets = [];
+
 class _MessageScreenState extends State<MessageScreen> {
   int number=0;
-  List<Widget> widgetlist=[];
   ScrollController controller = ScrollController();
-
+  List<Widget> widgets = [];
   @override
   void initState() {
+
     widgets=[];
     widgets.add(AiMessage(message: question[number]));
     number++;
-    widgetlist=widgets;
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
+    print("재빌드");
     return Basic(
         widgets: Stack(children: [
           Column(children: [
             Top(),
             Flexible(
-                child: ListView(
-                  controller: controller,
-              physics: BouncingScrollPhysics(),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              shrinkWrap: true,
-              children: widgetlist
-            ))]),
+                child:ChatList(widgets: widgets)
+            )]),
           InputText(setst: setst,)
         ]),
         paddings: 0);
   }
-  setst(){
+  setst() {
     setState(() {
-      widgets.add(
-        AiMessage(message: question[number])
-      );
+      widgets.add(MyMessage(message: Textcontroller.text));
+      widgets.add(AiMessage(message: question[number]));
       number++;
-      widgetlist=widgets;
-      print("??");
     });
   }
 }

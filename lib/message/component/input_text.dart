@@ -14,9 +14,8 @@ class InputText extends StatefulWidget {
   @override
   State<InputText> createState() => _InputTextState();
 }
-
+TextEditingController Textcontroller = TextEditingController();
 class _InputTextState extends State<InputText> {
-  TextEditingController Textcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -51,16 +50,10 @@ class _InputTextState extends State<InputText> {
                       child: IconButton(
                           onPressed: () {
                             if(Textcontroller.text!=""){
-                            setState(() {
-                              widgets.add(
-                                  MyMessage(
-                                      message: Textcontroller.text
-                                  )
-                              );
+                              widget.setst();
                               Textcontroller.clear();
-                            });
-                            widget.setst();
-                          }},
+                           }
+                            },
                           padding: EdgeInsets.zero,
                           icon: Icon(SolarIconsBold.mapArrowSquare, size: 40.r, color: Color(0xFFBF8DFE)))
                   )

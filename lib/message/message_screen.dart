@@ -6,6 +6,7 @@ import 'package:ai_me/message/component/input_text.dart';
 import 'package:ai_me/message/component/top.dart';
 import 'package:flutter/material.dart';
 
+import 'component/go_result_button.dart';
 import 'component/my_message.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -42,21 +43,28 @@ class _MessageScreenState extends State<MessageScreen> {
         paddings: 0);
   }
   setst() {
-    setState(() {
-      widgets.add(MyMessage(message: Textcontroller.text));
-      widgets.add(AiMessage(message: question[number]));
-      number++;
-    });
+    if(number==12){
+      setState(() {
+        widgets.add(MyMessage(message: Textcontroller.text));
+        widgets.add(
+            number==12?
+        GoResultButton(    //다시하기
+            message:  "당신은 예상할 수 없는 사람이네요! \n저랑 다시 대화해주세요🥹",
+            onPressed: (){},
+            buttonText: "다시 하기"):
+        GoResultButton( //결과보기
+            message:  "당신이 어떤 사람인지 알겠어요!😉",
+            onPressed: (){},
+            buttonText: "결과 보기")
+        );
+      });
+    }
+    else {
+      setState(() {
+        widgets.add(MyMessage(message: Textcontroller.text));
+        widgets.add(AiMessage(message: question[number]));
+        number++;
+      });
+    }
   }
 }
-
-// GoResultButton(    //다시하기
-// message:  "당신은 예상할 수 없는 사람이네요! \n저랑 다시 대화해주세요🥹",
-// onPressed: (){},
-// buttonText: "다시 하기"
-// ),
-// GoResultButton( //결과보기
-// message:  "당신이 어떤 사람인지 알겠어요!😉",
-// onPressed: (){},
-// buttonText: "결과 보기"
-// )

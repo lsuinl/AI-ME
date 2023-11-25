@@ -1,8 +1,11 @@
 import 'package:ai_me/common/basic.dart';
+import 'package:ai_me/message/quest/post_answer_common.dart';
+import 'package:ai_me/message/quest/post_answer_mbti.dart';
 import 'package:ai_me/result/component/background.dart';
 import 'package:ai_me/result/component/percentage_bar.dart';
 import 'package:ai_me/result/component/replay_button.dart';
 import 'package:ai_me/result/component/result_content.dart';
+import 'package:ai_me/result/quest/post_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +16,8 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AnswerCommon("시발");
+    AnswerMbti("IE", "안녕");
     return Background(
         widgets:  Column(
               children: [

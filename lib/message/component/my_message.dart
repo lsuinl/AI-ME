@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyMessage extends StatelessWidget {
-  const MyMessage({super.key});
+  final String message;
+
+  const MyMessage({
+    required this.message,
+    super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +33,7 @@ class MyMessage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "슬퍼하지마 숭숭숭",
+                  message,
                   style: TextStyle(fontSize: 17.sp, color: Colors.white),
                 ))));
   }

@@ -1,36 +1,34 @@
-import 'package:ai_me/common/basic.dart';
-import 'package:ai_me/message/quest/post_answer_common.dart';
-import 'package:ai_me/message/quest/post_answer_mbti.dart';
 import 'package:ai_me/result/component/background.dart';
 import 'package:ai_me/result/component/percentage_bar.dart';
 import 'package:ai_me/result/component/replay_button.dart';
 import 'package:ai_me/result/component/result_content.dart';
-import 'package:ai_me/result/quest/post_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key});
+  final Map<String, int> mbti;
+
+  const ResultScreen({
+    required this.mbti,
+  super.key});
 
   @override
   Widget build(BuildContext context) {
-    AnswerCommon("시발");
-    AnswerMbti("IE", "안녕");
+    String mbtis=mbtiresult();
     return Background(
         widgets:  Column(
               children: [
+                Text(mbtis,style: TextStyle(fontSize: 30.sp)),
                 SizedBox(height: 70.h),
                 Image.asset("asset/ai_me.png", width: 250.w),
                 Flexible(
                     child: ListView(
                         shrinkWrap: true,
                         children: [
-                          PercentageBar(left: "I ", right: "E", percent: 0.2),
-                          PercentageBar(left: "S", right: "N", percent: 0.2),
-                          PercentageBar(left: "T ", right: "F", percent: 0.2),
-                          PercentageBar(left: "P ", right: "J", percent: 0.2),
+                          PercentageBar(left: "I ", right: "E", percent:(mbti['I']!+mbti['E']!)/mbti['I']!,),
+                          PercentageBar(left: "S", right: "N", percent: (mbti['I']!+mbti['E']!)/mbti['I']!),
+                          PercentageBar(left: "T ", right: "F", percent: (mbti['I']!+mbti['E']!)/mbti['I']!),
+                          PercentageBar(left: "P ", right: "J", percent: (mbti['I']!+mbti['E']!)/mbti['I']!),
                           ResultContent(title: "성격", content: ""),
                           ResultContent(title: "잘 맞는 친구 유형", content: ""),
                           SizedBox(height: 20.h),
@@ -39,5 +37,19 @@ class ResultScreen extends StatelessWidget {
                     ))
               ],
             ));
+  }
+
+  String mbtiresult(){
+    String mbtis="";
+    if(mbti['I']!>mbti['E']!) mbtis+="I";
+    else mbtis+="E";
+    if(mbti['S']!>mbti['N']!) mbtis+="S";
+    else mbtis+="N";
+    if(mbti['T']!>mbti['F']!) mbtis+="T";
+    else mbtis+="F";
+    if(mbti['P']!>mbti['J']!) mbtis+="P";
+    else mbtis+="J";
+
+    return mbtis;
   }
 }

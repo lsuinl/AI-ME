@@ -25,7 +25,7 @@ class PercentageBar extends StatelessWidget {
         leading: new Text(left, style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w600),),
         trailing: new Text(right, style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w600)),
         percent: percent,
-        center: Text("80.0%"),
+        center: Text((percent*100).toString()),
         backgroundColor: Color(0xAA9F6BE0),
         progressColor: Color(0xFF9F6BE0),
         barRadius: Radius.circular(20),

@@ -9,7 +9,7 @@ void main() {
       ScreenUtilInit(designSize: Size(360, 690),
   builder:(context,child) {
     return MaterialApp(
-      home: ResultScreen(),
+      home: HomeScreen(),
     );
   }));
   }

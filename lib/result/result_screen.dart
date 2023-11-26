@@ -32,7 +32,7 @@ class ResultScreen extends StatelessWidget {
                           ResultContent(title: "성격", content: ""),
                           ResultContent(title: "잘 맞는 친구 유형", content: ""),
                           SizedBox(height: 20.h),
-                          ReplayButton()
+                          ReplayButton(mbtis: mbtis),
                         ]
                     ))
               ],

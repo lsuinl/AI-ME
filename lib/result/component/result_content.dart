@@ -16,11 +16,13 @@ class ResultContent extends StatelessWidget {
           child: Text(title, style: TextStyle(fontSize: 25.sp, fontWeight: FontWeight.w600),),
         ),
         Container(
-            height: 150.h,
             decoration: const BoxDecoration(
                 color: Color(0xFFEAD9FF),
-                borderRadius: BorderRadius.all(Radius.circular(30.0))
-            )),
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            ),
+          padding: EdgeInsets.all(20),
+          child: Text(content, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 13.sp),)
+        ),
         SizedBox(height: 10.h)
       ],
     );

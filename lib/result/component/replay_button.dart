@@ -72,7 +72,7 @@ class _ReplayButtonState extends State<ReplayButton> {
                       backgroundColor: Color(0xFFEAD9FF),
                       content: Text(
                         "실제 MBTI와 동일한 결과였나요?\n여러분의 mbti를 알려주세요!",
-                        style: TextStyle(
+                        style: GoogleFonts.gowunDodum(
                             fontSize: 15.sp, fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
                       ),
@@ -121,11 +121,7 @@ class _ReplayButtonState extends State<ReplayButton> {
                                             _selectedmbti!, widget.content);
                                         Fluttertoast.showToast(
                                             msg: "응답해주셔서 감사합니다!");
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeScreen(check: true)));
+                                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen(check: true)),(route)=>false);
                                       },
                                       child: Text(
                                         "제출",
@@ -150,7 +146,7 @@ class _ReplayButtonState extends State<ReplayButton> {
           },
           child: Text(
             '다시 테스트하기',
-            style: GoogleFonts.notoSansKr(
+            style: GoogleFonts.gowunDodum(
                 fontSize: 23.sp, fontWeight: FontWeight.w500),
           ),
         ));

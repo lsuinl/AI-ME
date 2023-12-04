@@ -25,10 +25,10 @@ class StartButton extends StatelessWidget {
             foregroundColor: Colors.white,
             padding: EdgeInsets.all(10.0),
           ),
-          onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context) => MessageScreen())),
+          onPressed: () =>Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => MessageScreen()),(route)=>false),
           child: Text(
             '대 화 시 작',
-            style: GoogleFonts.notoSansKr(fontSize: 23.sp, fontWeight: FontWeight.w500),
+            style: GoogleFonts.gowunDodum(fontSize: 23.sp, fontWeight: FontWeight.w500),
           ),
         ));
   }

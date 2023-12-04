@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:solar_icons/solar_icons.dart';
 
 class GoResultButton extends StatelessWidget {
@@ -51,7 +52,7 @@ class GoResultButton extends StatelessWidget {
                 children: [
                   Text(
                     message,
-                    style: TextStyle(fontSize: 17.sp, color: Colors.white),
+                    style: GoogleFonts.gowunDodum(fontSize: 17.sp, color: Colors.white),
                   ),
                   SizedBox(height: 10.h),
                   ElevatedButton(
@@ -61,7 +62,7 @@ class GoResultButton extends StatelessWidget {
                           minimumSize: Size(150.w, 30.h),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                       onPressed: onPressed,
-                      child: Text(buttonText, style: TextStyle(color: Color(0xFF8E35FF), fontSize: 15.sp)))
+                      child: Text(buttonText, style: GoogleFonts.gowunDodum(color: Color(0xFF8E35FF), fontSize: 15.sp)))
                 ],
               ))
         ],

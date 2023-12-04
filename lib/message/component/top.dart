@@ -14,7 +14,7 @@ class Top extends StatelessWidget {
         child: Center(
           child: Text(
             "에이미",
-            style: GoogleFonts.notoSansKr(
+            style: GoogleFonts.gowunDodum(
                 color: Colors.white,
                 fontSize: 25.sp,
                 fontWeight: FontWeight.w500

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     if (widget.check == true) {
       SchedulerBinding.instance!.addPostFrameCallback((_) {
         showDialog(
@@ -28,48 +29,51 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (BuildContext context) {
               return AlertDialog(
                 backgroundColor: Color(0xFFEAD9FF),
-
                 title: Text(
-                    "저희 서비스를 이용해주셔서 감사합니다!",
-                    style:
-                    TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center,
-                  ),
+                  "저희 서비스를 이용해주셔서 감사합니다!",
+                  style:
+                  GoogleFonts.gowunDodum(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  textAlign: TextAlign.center,
+                ),
                 content: Text("연락처 등록 시, 추첨을 통해 \n 5명에게 스타벅스 기프티콘을 드립니다!",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10.sp),
+                  style: GoogleFonts.gowunDodum(fontSize: 10.sp),
                 ),
                 actions: [
                   TextButton(
-                      onPressed: () async {
-                        SharedPreferences prefs = await SharedPreferences.getInstance();
-                        prefs.setBool("check", false);
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "Cancel",
-                        style: TextStyle(color:Colors.black),
-                      ),
-                     ),
+                    onPressed: () async {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setBool("check", false);
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Cancel",
+                      style: GoogleFonts.gowunDodum(color:Colors.black),
+                    ),
+                  ),
                   TextButton(
-                      onPressed: () async {
-                        moveSite();
-                        SharedPreferences prefs =
-                        await SharedPreferences.getInstance();
-                        prefs.setBool("check", false);
-                        Fluttertoast.showToast(msg: "페이지로 이동 중입니다..");
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "Ok",
-                        style: TextStyle(color: Color(0xFF8E35FF)),
-                      ),
-                     )
+                    onPressed: () async {
+                      moveSite();
+                      SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                      prefs.setBool("check", false);
+                      Fluttertoast.showToast(msg: "페이지로 이동 중입니다..");
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Ok",
+                      style: GoogleFonts.gowunDodum(color: Color(0xFF8E35FF)),
+                    ),
+                  )
                 ],
               );
             });
       });
     }
+    super.initState();
+  }
+  @override
+  Widget build(BuildContext context) {
     return Background(
         widgets: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -77,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> moveSite() async {
-    Uri _url = Uri.parse("https://github.com/lsuinl");
+    Uri _url = Uri.parse("https://forms.gle/6ag8AbRgYT3eB5pn9");
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }

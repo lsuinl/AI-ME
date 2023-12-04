@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class PercentageBar extends StatelessWidget {
@@ -22,8 +23,8 @@ class PercentageBar extends StatelessWidget {
         animation: true,
         animationDuration: 1000,
         lineHeight: 20.h,
-        leading: new Text(left, style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w600),),
-        trailing: new Text(right, style: TextStyle(fontSize: 30.sp, fontWeight: FontWeight.w600)),
+        leading: new Text(left, style: GoogleFonts.gowunDodum(fontSize: 30.sp, fontWeight: FontWeight.w600),),
+        trailing: new Text(right, style: GoogleFonts.gowunDodum(fontSize: 30.sp, fontWeight: FontWeight.w600)),
         percent: percent,
         center: Text((percent*100).toString()),
         backgroundColor: Color(0xAA9F6BE0),

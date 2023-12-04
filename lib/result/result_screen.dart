@@ -5,6 +5,7 @@ import 'package:ai_me/result/component/replay_button.dart';
 import 'package:ai_me/result/component/result_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ResultScreen extends StatelessWidget {
   final Map<String, int> mbti;
@@ -21,7 +22,7 @@ class ResultScreen extends StatelessWidget {
     return Background(
         widgets:  Column(
               children: [
-                Text(mbtis,style: TextStyle(fontSize: 30.sp)),
+                Text(mbtis,style: GoogleFonts.gowunDodum(fontSize: 30.sp)),
                 SizedBox(height: 70.h),
                 Image.asset("asset/ai_me.png", width: 250.w),
                 Flexible(

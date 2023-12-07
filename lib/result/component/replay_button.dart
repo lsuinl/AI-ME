@@ -10,8 +10,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ReplayButton extends StatefulWidget {
   final String mbtis;
   final String content;
+  final List<Map<String, String>> detail_answer;
 
-  const ReplayButton({required this.mbtis, required this.content, super.key});
+  const ReplayButton({required this.mbtis, required this.content, required this.detail_answer, super.key});
 
   @override
   State<ReplayButton> createState() => _ReplayButtonState();
@@ -117,11 +118,9 @@ class _ReplayButtonState extends State<ReplayButton> {
                                   padding: EdgeInsets.symmetric(horizontal: 50),
                                   child: TextButton(
                                       onPressed: () async {
-                                        PostResult(
-                                            _selectedmbti!, widget.content);
-                                        Fluttertoast.showToast(
-                                            msg: "응답해주셔서 감사합니다!");
-                                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen(check: true)),(route)=>false);
+                                        PostResult(_selectedmbti!, widget.content,widget.detail_answer);
+                                        Fluttertoast.showToast(msg: "응답해주셔서 감사합니다!");
+                                      //  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen(check: true)),(route)=>false);
                                       },
                                       child: Text(
                                         "제출",
@@ -145,7 +144,7 @@ class _ReplayButtonState extends State<ReplayButton> {
                 });
           },
           child: Text(
-            '다시 테스트하기',
+            '결과제출',
             style: GoogleFonts.gowunDodum(
                 fontSize: 23.sp, fontWeight: FontWeight.w500),
           ),

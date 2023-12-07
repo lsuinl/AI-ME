@@ -4,7 +4,8 @@ import 'dart:convert';
 import '../../common/model/error_model.dart';
 import '../../common/urls.dart';
 
-Future<dynamic> PostResult(String mbti,String answer) async {
+Future<dynamic> PostResult(String mbti,String answer, List<Map<String, String>> detail_answer) async {
+  print(detail_answer);
   http.Response response = await http.post(
     Uri.parse('$url/feedback'),
     headers: <String, String>{
@@ -12,7 +13,8 @@ Future<dynamic> PostResult(String mbti,String answer) async {
     },
     body: jsonEncode({
       "mbti": mbti,
-      "answer":answer
+      "common_answer":answer,
+      "detail_answer":detail_answer
     }),
   );
   print(response.statusCode);

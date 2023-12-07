@@ -9,7 +9,9 @@ import 'package:ai_me/message/quest/post_answer_common.dart';
 import 'package:ai_me/message/quest/post_answer_mbti.dart';
 import 'package:ai_me/result/result_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'component/go_result_button.dart';
 import 'component/my_message.dart';
 
@@ -29,22 +31,33 @@ class _MessageScreenState extends State<MessageScreen> {
   ScrollController controller = ScrollController();
   List<Widget> widgets = [];
   List<String> lackmbti=[];
-
+  List<Map<String,String>> detail_answer=[];
+  bool popup=false;
   @override
   void initState() {
     widgets = [];
     widgets.add(AiMessage(message: question[number]));
     number++;
     super.initState();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    print("재빌드");
+    SchedulerBinding.instance!.addPostFrameCallback((_) {
+      if(popup==false) {
+        popup=true;
+        noticepopup();
+      }
+    });
     return Basic(
         widgets: Stack(children: [
           Column(
-              children: [Top(), Flexible(child: ChatList(widgets: widgets))]),
+              children: [
+                Top(number: number,limitnumber: limitnumber,),
+                Flexible(child: ChatList(widgets: widgets))
+              ]
+          ),
           InputText(
             setst: setst,
           )
@@ -59,18 +72,23 @@ class _MessageScreenState extends State<MessageScreen> {
       String mbtis = await AnswerCommon(text);
       for(int i=0;i<4;i++)
         mbti[mbtis[i]]=mbti[mbtis[i]]!+1;
+      sumAnswer = sumAnswer + text;
+      mbtis = await AnswerCommon(sumAnswer);
+      for(int i=0;i<4;i++)
+        mbti[mbtis[i]]=mbti[mbtis[i]]!+4;
       setState(() {
         widgets.add(MyMessage(message:text));
         //마지막체크 (다 나왔다면 바로 결과, 아니면 추가 질문 생성)
         lackmbti = mbticheck();
-        if (lackmbti.length == 0) showResult();
+        if (mbticheck().length == 0) showResult();
         else {
           limitnumber += (lackmbti.length * 2);
           if (lackmbti.contains('IE')) lackQuestion.add(question_IE);
           if (lackmbti.contains('SN')) lackQuestion.add(question_SN);
-          if (lackmbti.contains('TF')) lackQuestion.add(question_TF);
+          if (lackmbti.contains('FT')) lackQuestion.add(question_TF);
           if (lackmbti.contains('PJ')) lackQuestion.add(question_PJ);
         }
+        widgets.add(AiMessage(message: lackQuestion[0][0]));
         number++;
       });
     }
@@ -86,21 +104,32 @@ class _MessageScreenState extends State<MessageScreen> {
       });
     }
     else if(number>12 && number<limitnumber){ //추가질문중
-      String mbtis = await AnswerMbti(text,lackmbti[((number-13)/2).toInt()]);
-      for(int i=0;i<2;i++)
-        mbti[mbtis[i]]=mbti[mbtis[i]]!+1;
+      String mbtis = await AnswerMbti(lackmbti[((number-13)/2).toInt()],text);
+      mbti[mbtis[0]]=mbti[mbtis[0]]!+1;
       setState(() {
+        detail_answer.add(//피드백용 디테일 답변 저장하기.
+          {
+            "detail_mbti":lackmbti[((number-13)/2).toInt()],
+            "answer":text
+          }
+        );
+        print(detail_answer);
         widgets.add(MyMessage(message: text));
-        AnswerCommon(text);
-        sumAnswer = sumAnswer + text;
         widgets.add(AiMessage(message: lackQuestion[((number-13)/2).toInt()][number%2]));
         number++;
       });
     }
     else{ //추가질문까지 모두 완료
-      String mbtis = await AnswerMbti(text,lackmbti[((number-13)/2).toInt()]);
-      for(int i=0;i<2;i++)
-        mbti[mbtis[i]]=mbti[mbtis[i]]!+1;
+      String mbtis = await AnswerMbti(lackmbti[((number-13)/2).toInt()],text);
+      mbti[mbtis[0]]=mbti[mbtis[0]]!+1;
+      setState(() {
+        detail_answer.add(//피드백용 디테일 답변 저장하기.
+            {
+              "detail_mbti":lackmbti[((number-13)/2).toInt()],
+              "answer":text
+            }
+        );
+      });
       showResult();
     }
   }
@@ -114,10 +143,8 @@ class _MessageScreenState extends State<MessageScreen> {
     return list;
   }
 
-  showResult(){
+  showResult() async{
     setState(() {
-      sumAnswer = sumAnswer + Textcontroller.text;
-      AnswerCommon(sumAnswer);
       widgets.add(mbticheck().length > 1
           ? GoResultButton(
         //다시하기
@@ -127,8 +154,30 @@ class _MessageScreenState extends State<MessageScreen> {
           : GoResultButton(
         //결과보기
           message: "당신이 어떤 사람인지 알겠어요!😉",
-          onPressed: ()=> Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ResultScreen(mbti: mbti,content: sumAnswer,)),(route)=>false),
+          onPressed: ()=> Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => ResultScreen(mbti: mbti,content: sumAnswer,detail_list: detail_answer,)),(route)=>false),
           buttonText: "결과 보기"));
     });
   }
+
+  noticepopup(){
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              backgroundColor: Colors.white,
+              title: Text("알아주세요!",
+                style: GoogleFonts.gowunDodum(),),
+              content: Text("에이미는 여러분의 이야기를 듣고싶어합니다!\n에이미의 질문에 최대한 자세하고 정성스러운 답변을 해주세요!\n여러분의 답변이 구체적이고 정성스러울수록 에이미도 더 열심히 여러분을 분석합니다!",
+                style: GoogleFonts.gowunDodum(fontSize: 10.sp),
+                ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("확인", style: GoogleFonts.gowunDodum(fontSize: 10.sp),),
+                ),
+              ]);
+        });  }
 }

@@ -39,6 +39,7 @@ class _InputTextState extends State<InputText> {
                               controller: Textcontroller,
                                 cursorColor: Colors.white,
                                 decoration: InputDecoration(
+                                  isDense: true,
                                   border: InputBorder.none,
                                   enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide.none),

@@ -7,11 +7,13 @@ class PercentageBar extends StatelessWidget {
   final String left;
   final String right;
   final double percent;
+  final double graph;
 
   const PercentageBar(
       {required this.left,
       required this.right,
       required this.percent,
+        required this.graph,
       super.key});
 
   @override
@@ -23,11 +25,15 @@ class PercentageBar extends StatelessWidget {
         animation: true,
         animationDuration: 1000,
         lineHeight: 20.h,
-        leading: new Text(left, style: GoogleFonts.gowunDodum(fontSize: 30.sp, fontWeight: FontWeight.w600),),
-        trailing: new Text(right, style: GoogleFonts.gowunDodum(fontSize: 30.sp, fontWeight: FontWeight.w600)),
-        percent: percent,
-        center: Text((percent*100).toString()),
-        backgroundColor: Color(0xAA9F6BE0),
+        leading: Container(
+          alignment: Alignment.center,
+          width: 20.h,
+        child: Text(left, style: GoogleFonts.lalezar(fontSize: 30.sp, fontWeight: FontWeight.w500)),),
+
+        trailing: new Text(right, style: GoogleFonts.lalezar(fontSize: 30.sp, fontWeight: FontWeight.w500)),
+        percent: graph,
+        center: Text((percent*100).toStringAsFixed(2)),
+        backgroundColor: Colors.blueAccent,
         progressColor: Color(0xFF9F6BE0),
         barRadius: Radius.circular(20),
       )),

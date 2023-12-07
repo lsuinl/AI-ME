@@ -14,8 +14,10 @@ class ResultContent extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.centerLeft,
-          child: Text(title, style: GoogleFonts.gowunDodum(fontSize: 25.sp, fontWeight: FontWeight.w600),),
-        ),
+          child: Container(
+            child: Text(title, style: GoogleFonts.gowunDodum(fontSize: 28.sp, fontWeight: FontWeight.w900),),
+          )
+          ),
         Container(
             decoration: const BoxDecoration(
                 color: Color(0xFFEAD9FF),

@@ -19,6 +19,7 @@ Future<dynamic> AnswerCommon(String answer) async {
   if(response.statusCode==201){
     ResponseModel responsemodel = ResponseModel.fromJson(body);
     print(responsemodel.data['message'][0]);
+    print(responsemodel.data['mbti']);
     return responsemodel.data['mbti'];
   }
   else{

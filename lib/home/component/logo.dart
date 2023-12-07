@@ -8,19 +8,20 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 330.w,
-        height: 280.h,
         decoration: const BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(30.0))),
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        child:Padding(
+          padding: EdgeInsets.all(20),
+          child:
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Image.asset(
             'asset/ai_me.png',
             width: 150.w,
           ),
           SizedBox(height: 10.h),
           Text(
-            "A-ME",
+            "AI-ME",
             style: GoogleFonts.lalezar(fontSize: 35.sp, fontWeight: FontWeight.w500),
           ),
           Text(
@@ -28,6 +29,6 @@ class Logo extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.gowunDodum(fontSize: 18.sp),
           ),
-        ]));
+        ])));
   }
 }

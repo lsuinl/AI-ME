@@ -21,7 +21,6 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String mbtis = mbtiresult();
-    int entire=(mbti['I']! + mbti['E']!);
     return Background(
         widgets: Column(
       children: [
@@ -35,23 +34,23 @@ class ResultScreen extends StatelessWidget {
                 PercentageBar(
                   left: "I ",
                   right: "E",
-                  graph: mbti['I']!/entire,
-                  percent: mbti[mbtis[0]]!/entire),
+                  graph: mbti['I']!/(mbti['I']! + mbti['E']!),
+                  percent: mbti[mbtis[0]]!/(mbti['I']! + mbti['E']!)),
                 PercentageBar(
                     left: "S",
                     right: "N",
-                    graph: mbti['S']!/entire,
-                    percent: mbti[mbtis[1]]!/entire),
+                    graph: mbti['S']!/(mbti['S']! + mbti['N']!),
+                    percent: mbti[mbtis[1]]!/(mbti['S']! + mbti['N']!)),
                 PercentageBar(
                     left: "T ",
                     right: "F",
-                    graph:mbti['T']!/entire,
-                    percent:  mbti[mbtis[2]]!/entire),
+                    graph:mbti['T']!/(mbti['T']! + mbti['F']!),
+                    percent:  mbti[mbtis[2]]!/(mbti['T']! + mbti['F']!)),
                 PercentageBar(
                     left: "P ",
                     right: "J",
-                    graph:mbti['P']!/entire,
-                    percent: mbti[mbtis[3]]!/entire),
+                    graph:mbti['P']!/(mbti['P']! + mbti['J']!),
+                    percent: mbti[mbtis[3]]!/(mbti['P']! + mbti['J']!)),
                 ResultContent(title: "성격", content: MBTI_main[mbtis]!),
                 ResultContent(title: "장점 및 특기", content: MBTI_strong[mbtis]!),
                 ResultContent(title: "직업 추천", content: MBTI_job[mbtis]!),

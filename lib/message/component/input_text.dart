@@ -15,7 +15,21 @@ class InputText extends StatefulWidget {
   State<InputText> createState() => _InputTextState();
 }
 TextEditingController Textcontroller = TextEditingController();
+
 class _InputTextState extends State<InputText> {
+  FocusNode node=FocusNode();
+  @override
+  void initState() {
+    node=FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    node.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -36,8 +50,17 @@ class _InputTextState extends State<InputText> {
                       child: Row(children: [
                         Flexible(
                             child: TextFormField(
+                              autofocus: true,
+                              focusNode: node,
                               controller: Textcontroller,
-                                cursorColor: Colors.white,
+                                onFieldSubmitted: (value){
+                                  if(Textcontroller.text!=""){
+                                    widget.setst();
+                                    Textcontroller.clear();
+                                    FocusScope.of(context).requestFocus(node);
+                                  }
+                                },
+                                cursorColor: Colors.black,
                                 decoration: InputDecoration(
                                   isDense: true,
                                   border: InputBorder.none,
@@ -53,6 +76,7 @@ class _InputTextState extends State<InputText> {
                             if(Textcontroller.text!=""){
                               widget.setst();
                               Textcontroller.clear();
+                              FocusScope.of(context).requestFocus(node);
                            }
                             },
                           padding: EdgeInsets.zero,

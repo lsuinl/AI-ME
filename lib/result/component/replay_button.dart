@@ -120,7 +120,7 @@ class _ReplayButtonState extends State<ReplayButton> {
                                       onPressed: () async {
                                         PostResult(_selectedmbti!, widget.content,widget.detail_answer);
                                         Fluttertoast.showToast(msg: "응답해주셔서 감사합니다!");
-                                      //  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen(check: true)),(route)=>false);
+                                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomeScreen(check: true)),(route)=>false);
                                       },
                                       child: Text(
                                         "제출",

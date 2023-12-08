@@ -32,7 +32,7 @@ class PercentageBar extends StatelessWidget {
 
         trailing: new Text(right, style: GoogleFonts.lalezar(fontSize: 30.sp, fontWeight: FontWeight.w500)),
         percent: graph,
-        center: Text((percent*100).toStringAsFixed(2)),
+        center: Text((percent*100).toStringAsFixed(2),style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),),
         backgroundColor: Colors.blueAccent,
         progressColor: Color(0xFF9F6BE0),
         barRadius: Radius.circular(20),

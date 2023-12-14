@@ -31,31 +31,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 backgroundColor: Color(0xFFEAD9FF),
                 title: Text(
                   "저희 서비스를 이용해주셔서 감사합니다!",
-                  style:
-                  GoogleFonts.gowunDodum(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  style: GoogleFonts.gowunDodum(
+                      fontSize: 14.sp, fontWeight: FontWeight.w600),
                   textAlign: TextAlign.center,
                 ),
-                content: Text("연락처 등록 시, 추첨을 통해 \n 5명에게 스타벅스 기프티콘을 드립니다!",
+                content: Text(
+                  "연락처 등록 시, 추첨을 통해 \n 5명에게 스타벅스 기프티콘을 드립니다!",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.gowunDodum(fontSize: 10.sp),
                 ),
                 actions: [
                   TextButton(
                     onPressed: () async {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       prefs.setBool("check", false);
                       Navigator.pop(context);
                     },
                     child: Text(
                       "Cancel",
-                      style: GoogleFonts.gowunDodum(color:Colors.black),
+                      style: GoogleFonts.gowunDodum(color: Colors.black),
                     ),
                   ),
                   TextButton(
                     onPressed: () async {
                       moveSite();
                       SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
+                          await SharedPreferences.getInstance();
                       prefs.setBool("check", false);
                       Fluttertoast.showToast(msg: "페이지로 이동 중입니다..");
                       Navigator.pop(context);
@@ -72,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -86,4 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
       throw Exception('Could not launch $_url');
     }
   }
+
+
 }

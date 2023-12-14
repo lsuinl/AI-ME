@@ -15,6 +15,7 @@ class InputText extends StatefulWidget {
   State<InputText> createState() => _InputTextState();
 }
 TextEditingController Textcontroller = TextEditingController();
+DateTime commenttime=DateTime.now();
 
 class _InputTextState extends State<InputText> {
   FocusNode node=FocusNode();
@@ -73,7 +74,8 @@ class _InputTextState extends State<InputText> {
                       width: 30.0,
                       child: IconButton(
                           onPressed: () {
-                            if(Textcontroller.text!=""){
+                            if(Textcontroller.text!="" &&  (DateTime.now().difference(commenttime).inSeconds > 2)){
+                              commenttime=DateTime.now();
                               widget.setst();
                               Textcontroller.clear();
                               FocusScope.of(context).requestFocus(node);

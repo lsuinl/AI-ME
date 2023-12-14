@@ -133,7 +133,6 @@ class ResultScreen extends StatelessWidget {
       else
         answer[i]['detail_mbti'] = mbtis[3].toString();
     }
-    print(answer);
     return answer;
   }
 }

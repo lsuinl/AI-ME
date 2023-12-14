@@ -24,14 +24,13 @@ class MessageScreen extends StatefulWidget {
 
 class _MessageScreenState extends State<MessageScreen> {
   Map<String, int> mbti = {'I':0,'E':0,'S':0,'N':0,'F':0,'T':0,'P':0,'J':0};
-  List<List<String>> lackQuestion=[];
   String sumAnswer = "";
   int limitnumber = 12;
   int number = 0;
   ScrollController controller = ScrollController();
   List<Widget> widgets = [];
-  List<String> lackmbti=[];
   List<Map<String,String>> detail_answer=[];
+  List<String> mbtidetail=['IE','SN','FT','PJ'];
   bool popup=false;
   @override
   void initState() {
@@ -39,11 +38,11 @@ class _MessageScreenState extends State<MessageScreen> {
     widgets.add(AiMessage(message: question[number]));
     number++;
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
+
     SchedulerBinding.instance!.addPostFrameCallback((_) {
       if(popup==false) {
         popup=true;
@@ -68,31 +67,22 @@ class _MessageScreenState extends State<MessageScreen> {
   setst() async {
     String text=Textcontroller.text;
 
-    if (number == 12) { //모든종합 질문이 끝났을 때,
+    if (number == 8) { //모든종합 질문이 끝났을 때,
+      setState(() {
+        widgets.add(MyMessage(message:text));
+        widgets.add(AiMessage(message:question_detail[0]));
+        number++;
+      });
       String mbtis = await AnswerCommon(text);
       for(int i=0;i<4;i++)
         mbti[mbtis[i]]=mbti[mbtis[i]]!+1;
+
       sumAnswer = sumAnswer + text;
       mbtis = await AnswerCommon(sumAnswer);
       for(int i=0;i<4;i++)
-        mbti[mbtis[i]]=mbti[mbtis[i]]!+4;
-      setState(() {
-        widgets.add(MyMessage(message:text));
-        //마지막체크 (다 나왔다면 바로 결과, 아니면 추가 질문 생성)
-        lackmbti = mbticheck();
-        if (mbticheck().length == 0) showResult();
-        else {
-          limitnumber += (lackmbti.length * 2);
-          if (lackmbti.contains('IE')) lackQuestion.add(question_IE);
-          if (lackmbti.contains('SN')) lackQuestion.add(question_SN);
-          if (lackmbti.contains('FT')) lackQuestion.add(question_TF);
-          if (lackmbti.contains('PJ')) lackQuestion.add(question_PJ);
-        }
-        widgets.add(AiMessage(message: lackQuestion[0][0]));
-        number++;
-      });
+        mbti[mbtis[i]]=mbti[mbtis[i]]!+6;
     }
-    else if(number<12){ //종합질문중
+    else if(number<8){ //종합질문중
       String mbtis = await AnswerCommon(text);
       for(int i=0;i<4;i++)
         mbti[mbtis[i]]=mbti[mbtis[i]]!+1;
@@ -103,32 +93,32 @@ class _MessageScreenState extends State<MessageScreen> {
         number++;
       });
     }
-    else if(number>12 && number<limitnumber){ //추가질문중
-      String mbtis = await AnswerMbti(lackmbti[((number-13)/2).toInt()],text);
-      mbti[mbtis[0]]=mbti[mbtis[0]]!+1;
+    else if(number>8 && number<limitnumber){ //추가질문중
+      String mbtis = await AnswerMbti(mbtidetail[number-9],text);
+      mbti[mbtis[0]]=mbti[mbtis[0]]!+4;
       setState(() {
         detail_answer.add(//피드백용 디테일 답변 저장하기.
-          {
-            "detail_mbti":lackmbti[((number-13)/2).toInt()],
-            "answer":text
-          }
+            {
+              "detail_mbti":mbtidetail[number-9],
+              "answer":text
+            }
         );
-        print(detail_answer);
         widgets.add(MyMessage(message: text));
-        widgets.add(AiMessage(message: lackQuestion[((number-13)/2).toInt()][number%2]));
+        widgets.add(AiMessage(message: question_detail[number-8]));
         number++;
       });
     }
     else{ //추가질문까지 모두 완료
-      String mbtis = await AnswerMbti(lackmbti[((number-13)/2).toInt()],text);
-      mbti[mbtis[0]]=mbti[mbtis[0]]!+1;
+      String mbtis = await AnswerMbti(mbtidetail[number-9],text);
+      mbti[mbtis[0]]=mbti[mbtis[0]]!+4;
       setState(() {
         detail_answer.add(//피드백용 디테일 답변 저장하기.
             {
-              "detail_mbti":lackmbti[((number-13)/2).toInt()],
+              "detail_mbti":mbtidetail[number-9],
               "answer":text
             }
         );
+        widgets.add(MyMessage(message: text));
       });
       showResult();
     }
@@ -136,10 +126,12 @@ class _MessageScreenState extends State<MessageScreen> {
 
   List<String> mbticheck() {
     List<String> list = [];
-    if (mbti['I'] == mbti['E']) list.add('IE');
-    if (mbti['S'] == mbti['N']) list.add('SN');
-    if (mbti['T'] == mbti['F']) list.add('TF');
-    if (mbti['P'] == mbti['J']) list.add('PJ');
+    number=0;
+    if (mbti['I'] == mbti['E']) list.add('IE'); else if(mbti['I']==16 || mbti['E']==16) number++;
+    if (mbti['S'] == mbti['N']) list.add('SN'); else if(mbti['S']==16 || mbti['N']==16) number++;
+    if (mbti['T'] == mbti['F']) list.add('TF'); else if(mbti['F']==16 || mbti['T']==16) number++;
+    if (mbti['P'] == mbti['J']) list.add('PJ'); else if(mbti['P']==16 || mbti['J']==16) number++;
+    if(number==4) list.add('IE');
     return list;
   }
 
@@ -167,9 +159,9 @@ class _MessageScreenState extends State<MessageScreen> {
           return AlertDialog(
               backgroundColor: Colors.white,
               title: Text("알아주세요!",
-                style: GoogleFonts.gowunDodum(),),
+                style: GoogleFonts.gowunDodum(fontSize: 20.sp),),
               content: Text("에이미는 여러분의 이야기를 듣고싶어합니다!\n에이미의 질문에 최대한 자세하고 정성스러운 답변을 해주세요!\n여러분의 답변이 구체적이고 정성스러울수록 에이미도 더 열심히 여러분을 분석합니다!",
-                style: GoogleFonts.gowunDodum(fontSize: 10.sp),
+                style: GoogleFonts.gowunDodum(fontSize: 14.sp),
                 ),
               actions: [
                 TextButton(

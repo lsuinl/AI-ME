@@ -1,1 +1,1 @@
-String url="http://3.35.150.254:8000";
+String url="https://aimeti.p-e.kr";

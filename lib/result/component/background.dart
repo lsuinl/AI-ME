@@ -17,6 +17,6 @@ class Background extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             ),
-            child: Padding(padding: EdgeInsets.all(15), child: widgets)));
+            child: Padding(padding: EdgeInsets.symmetric(horizontal: 15,vertical: 5), child: widgets)));
   }
 }

@@ -19,13 +19,15 @@ Future<dynamic> AnswerCommon(String answer) async {
   if(response.statusCode==201){
     ResponseModel responsemodel = ResponseModel.fromJson(body);
     print(responsemodel.data['message'][0]);
+    print(responsemodel.data['mbti']);
     return responsemodel.data['mbti'];
   }
   else{
-    ResponseErrorModel responsemodel = ResponseErrorModel.fromJson(body);
-    print(responsemodel.statusCode);
-    print(responsemodel.message);
-    print(responsemodel.error);
-    return responsemodel.statusCode;//에러반환
+    return true;
+     ResponseErrorModel responsemodel = ResponseErrorModel.fromJson(body);
+    // print(responsemodel.statusCode);
+     print(responsemodel.message);
+    // print(responsemodel.error);
+    // return responsemodel.statusCode;//에러반환
   }
 }

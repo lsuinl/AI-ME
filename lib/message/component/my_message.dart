@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyMessage extends StatelessWidget {
   final String message;
@@ -34,7 +35,7 @@ class MyMessage extends StatelessWidget {
                 ),
                 child: Text(
                   message,
-                  style: TextStyle(fontSize: 17.sp, color: Colors.white),
+                  style: GoogleFonts.gowunDodum(fontSize: 17.sp, color: Colors.white),
                 ))));
   }
 }

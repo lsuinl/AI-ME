@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:solar_icons/solar_icons.dart';
 
@@ -73,7 +74,7 @@ class _AiMessageState extends State<AiMessage> {
                   stops: [0.2, 1],
                 ),
               ),
-              child: Text(widget.message, style: TextStyle(fontSize: 17.sp, color: Colors.white),))
+              child: Text(widget.message, style: GoogleFonts.gowunDodum(fontSize: 17.sp, color: Colors.white),))
         )],
       ));
   }

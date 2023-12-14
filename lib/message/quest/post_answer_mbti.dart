@@ -17,11 +17,13 @@ Future<dynamic> AnswerMbti(String type,String answer) async {
       "answer": answer
     }),
   );
+
   dynamic body =  jsonDecode(utf8.decode(response.bodyBytes));
   if(response.statusCode==201){
     ResponseModel responsemodel = ResponseModel.fromJson(body);
     print(responsemodel.data['message'][0]);
-    return responsemodel.data['mbtiType'];
+    print(responsemodel.data['mbti']);
+    return responsemodel.data['mbti'];
   }
   else{
     ResponseErrorModel responsemodel = ResponseErrorModel.fromJson(body);
